@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     try {
       setError(null);
-      const response = await axios.post('http://192.168.29.231:8000/api/login/', {
+      const response = await axios.post('https://lms-1rkz.onrender.com/api/login/', {
         username,
         password,
       });
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       setError(null);
-      const response = await axios.post('http://192.168.29.231:8000/api/register/', userData);
+      const response = await axios.post('https://lms-1rkz.onrender.com/api/register/', userData);
       
       const { user: newUser, access, refresh } = response.data;
       
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }) => {
   const refreshToken = async () => {
     try {
       const refresh = localStorage.getItem('refresh_token');
-      const response = await axios.post('http://192.168.29.231:8000/api/token/refresh/', {
+      const response = await axios.post('https://lms-1rkz.onrender.com/api/token/refresh/', {
         refresh,
       });
       
