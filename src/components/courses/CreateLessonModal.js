@@ -71,25 +71,213 @@ const CreateLessonModal = ({ course, lesson: existingLesson, onClose, onSubmit, 
     }
   };
 
+  // Styles
+  const styles = {
+    overlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 9999,
+      padding: '20px',
+    },
+    modalContent: {
+      background: 'white',
+      borderRadius: '12px',
+      width: '100%',
+      maxWidth: '600px',
+      maxHeight: '90vh',
+      overflowY: 'auto',
+      boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+    },
+    modalHeader: {
+      padding: '1.5rem 1.5rem 0.5rem',
+      borderBottom: '1px solid #e5e7eb',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+    },
+    modalTitle: {
+      fontSize: '1.5rem',
+      fontWeight: '700',
+      color: '#1f2937',
+      margin: 0,
+      marginBottom: '0.5rem',
+    },
+    courseTitleText: {
+      color: '#6b7280',
+      fontSize: '0.875rem',
+    },
+    courseTitleSpan: {
+      color: '#4f46e5',
+      fontWeight: '600',
+    },
+    closeButton: {
+      background: 'none',
+      border: 'none',
+      color: '#6b7280',
+      cursor: 'pointer',
+      padding: '0.25rem',
+      borderRadius: '6px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    form: {
+      padding: '1.5rem',
+    },
+    formGroup: {
+      marginBottom: '1.5rem',
+    },
+    formLabel: {
+      display: 'block',
+      fontSize: '0.875rem',
+      fontWeight: '600',
+      color: '#374151',
+      marginBottom: '0.5rem',
+    },
+    formControl: {
+      width: '100%',
+      padding: '0.75rem 1rem',
+      border: '1px solid #d1d5db',
+      borderRadius: '8px',
+      fontSize: '1rem',
+      lineHeight: '1.5',
+      backgroundColor: 'white',
+    },
+    formControlError: {
+      borderColor: '#dc2626',
+    },
+    formRow: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+      gap: '1rem',
+      marginBottom: '1.5rem',
+    },
+    errorMessage: {
+      color: '#dc2626',
+      fontSize: '0.875rem',
+      marginTop: '0.5rem',
+      display: 'block',
+    },
+    formHint: {
+      color: '#6b7280',
+      fontSize: '0.75rem',
+      marginTop: '0.25rem',
+      display: 'block',
+    },
+    contentEditor: {
+      marginTop: '0.5rem',
+    },
+    markdownTips: {
+      display: 'flex',
+      gap: '0.5rem',
+      flexWrap: 'wrap',
+      marginTop: '0.5rem',
+    },
+    tipsLabel: {
+      color: '#6b7280',
+      fontSize: '0.75rem',
+      marginRight: '0.5rem',
+    },
+    code: {
+      padding: '0.125rem 0.5rem',
+      backgroundColor: '#f3f4f6',
+      borderRadius: '4px',
+      fontSize: '0.75rem',
+      fontFamily: 'monospace',
+      color: '#374151',
+    },
+    checkboxGroup: {
+      marginBottom: '2rem',
+    },
+    checkboxLabel: {
+      display: 'flex',
+      alignItems: 'center',
+      cursor: 'pointer',
+      userSelect: 'none',
+    },
+    checkboxInput: {
+      marginRight: '0.75rem',
+      width: '1rem',
+      height: '1rem',
+    },
+    checkboxText: {
+      color: '#374151',
+      fontSize: '0.875rem',
+    },
+    modalFooter: {
+      display: 'flex',
+      justifyContent: 'flex-end',
+      gap: '1rem',
+      paddingTop: '1.5rem',
+      borderTop: '1px solid #e5e7eb',
+    },
+    btn: {
+      padding: '0.75rem 1.5rem',
+      borderRadius: '8px',
+      fontSize: '0.875rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      border: 'none',
+      transition: 'background-color 0.2s',
+    },
+    btnPrimary: {
+      background: '#4f46e5',
+      color: 'white',
+    },
+    btnOutline: {
+      background: 'white',
+      color: '#374151',
+      border: '1px solid #d1d5db',
+    },
+    contentTypeSelect: {
+      position: 'relative',
+    },
+    contentTypeIcon: {
+      position: 'absolute',
+      right: '1rem',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      color: '#6b7280',
+      pointerEvents: 'none',
+    },
+  };
+
   return (
-    <div className="lesson-modal-overlay">
-      <div className="lesson-modal-content">
-        <div className="lesson-modal-header">
+    <div style={styles.overlay}>
+      <div style={styles.modalContent}>
+        <div style={styles.modalHeader}>
           <div>
-            <h2>{isEditing ? 'Edit Lesson' : 'Create New Lesson'}</h2>
-            <p className="course-title-text">For: <span>{course.title}</span></p>
+            <h2 style={styles.modalTitle}>
+              {isEditing ? 'Edit Lesson' : 'Create New Lesson'}
+            </h2>
+            <p style={styles.courseTitleText}>
+              For: <span style={styles.courseTitleSpan}>{course.title}</span>
+            </p>
           </div>
-          <button onClick={onClose} className="lesson-modal-close-btn">
+          <button 
+            onClick={onClose} 
+            style={styles.closeButton}
+          >
             <FiX size={24} />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit(onFormSubmit)} className="lesson-form">
-          <div className="form-group">
-            <label className="form-label">Title *</label>
+        <form onSubmit={handleSubmit(onFormSubmit)} style={styles.form}>
+          <div style={styles.formGroup}>
+            <label style={styles.formLabel}>Title *</label>
             <input
               type="text"
-              className={`form-control ${errors.title ? 'error' : ''}`}
+              style={{
+                ...styles.formControl,
+                ...(errors.title ? styles.formControlError : {})
+              }}
               placeholder="Enter lesson title"
               {...register('title', { 
                 required: 'Title is required',
@@ -97,14 +285,17 @@ const CreateLessonModal = ({ course, lesson: existingLesson, onClose, onSubmit, 
               })}
             />
             {errors.title && (
-              <span className="error-message">{errors.title.message}</span>
+              <span style={styles.errorMessage}>{errors.title.message}</span>
             )}
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Description *</label>
+          <div style={styles.formGroup}>
+            <label style={styles.formLabel}>Description *</label>
             <textarea
-              className={`form-control ${errors.description ? 'error' : ''}`}
+              style={{
+                ...styles.formControl,
+                ...(errors.description ? styles.formControlError : {})
+              }}
               rows="2"
               placeholder="Brief description of what students will learn in this lesson"
               {...register('description', { 
@@ -113,74 +304,72 @@ const CreateLessonModal = ({ course, lesson: existingLesson, onClose, onSubmit, 
               })}
             ></textarea>
             {errors.description && (
-              <span className="error-message">{errors.description.message}</span>
+              <span style={styles.errorMessage}>{errors.description.message}</span>
             )}
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label className="form-label">Content Type *</label>
-              <div className="content-type-select">
+          <div style={styles.formRow}>
+            <div style={styles.formGroup}>
+              <label style={styles.formLabel}>Content Type *</label>
+              <div style={styles.contentTypeSelect}>
                 <select
-                  className={`form-control ${errors.content_type ? 'error' : ''}`}
+                  style={{
+                    ...styles.formControl,
+                    ...(errors.content_type ? styles.formControlError : {})
+                  }}
                   {...register('content_type', { required: 'Content type is required' })}
                 >
                   <option value="">Select Type</option>
-                  <option value="text">
-                    <FiFileText /> Text Lesson
-                  </option>
-                  <option value="video">
-                    <FiVideo /> Video Lesson
-                  </option>
-                  <option value="quiz">
-                    <FiCheckCircle /> Quiz
-                  </option>
-                  <option value="assignment">
-                    <FiFile /> Assignment
-                  </option>
+                  <option value="text">Text Lesson</option>
+                  <option value="video">Video Lesson</option>
+                  <option value="quiz">Quiz</option>
+                  <option value="assignment">Assignment</option>
                 </select>
-                <div className="content-type-icon">
+                <div style={styles.contentTypeIcon}>
                   {contentType ? renderContentTypeIcon(contentType) : <FiFileText />}
                 </div>
               </div>
               {errors.content_type && (
-                <span className="error-message">{errors.content_type.message}</span>
+                <span style={styles.errorMessage}>{errors.content_type.message}</span>
               )}
             </div>
             
-            <div className="form-group">
-              <label className="form-label">Order</label>
+            <div style={styles.formGroup}>
+              <label style={styles.formLabel}>Order</label>
               <input
                 type="number"
-                className="form-control"
+                style={styles.formControl}
                 min="1"
                 placeholder="1"
                 {...register('order')}
               />
-              <span className="form-hint">Lower numbers appear first</span>
+              <span style={styles.formHint}>Lower numbers appear first</span>
             </div>
           </div>
 
           {contentType === 'video' && (
-            <div className="form-group">
-              <label className="form-label">Video URL</label>
+            <div style={styles.formGroup}>
+              <label style={styles.formLabel}>Video URL</label>
               <input
                 type="url"
-                className="form-control"
+                style={styles.formControl}
                 placeholder="https://youtube.com/watch?v=... or https://vimeo.com/..."
                 {...register('video_url')}
               />
-              <span className="form-hint">Supported platforms: YouTube, Vimeo, or direct video URLs</span>
+              <span style={styles.formHint}>Supported platforms: YouTube, Vimeo, or direct video URLs</span>
             </div>
           )}
 
-          <div className="form-group">
-            <label className="form-label">
+          <div style={styles.formGroup}>
+            <label style={styles.formLabel}>
               {contentType === 'quiz' ? 'Quiz Instructions *' : 'Content *'}
             </label>
-            <div className="content-editor">
+            <div style={styles.contentEditor}>
               <textarea
-                className={`form-control ${errors.content ? 'error' : ''}`}
+                style={{
+                  ...styles.formControl,
+                  ...(errors.content ? styles.formControlError : {})
+                }}
                 rows="6"
                 placeholder={
                   contentType === 'text'
@@ -196,72 +385,82 @@ const CreateLessonModal = ({ course, lesson: existingLesson, onClose, onSubmit, 
                   minLength: { value: 20, message: 'Content must be at least 20 characters' }
                 })}
               ></textarea>
-              <div className="content-tools">
+              <div style={{ marginTop: '0.5rem' }}>
                 {contentType === 'text' && (
-                  <div className="markdown-tips">
-                    <span className="tips-label">Markdown Tips:</span>
-                    <code># Header</code>
-                    <code>**Bold**</code>
-                    <code>*Italic*</code>
-                    <code>`Code`</code>
+                  <div style={styles.markdownTips}>
+                    <span style={styles.tipsLabel}>Markdown Tips:</span>
+                    <code style={styles.code}># Header</code>
+                    <code style={styles.code}>**Bold**</code>
+                    <code style={styles.code}>*Italic*</code>
+                    <code style={styles.code}>`Code`</code>
                   </div>
                 )}
               </div>
             </div>
             {errors.content && (
-              <span className="error-message">{errors.content.message}</span>
+              <span style={styles.errorMessage}>{errors.content.message}</span>
             )}
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label className="form-label">Duration (minutes)</label>
+          <div style={styles.formRow}>
+            <div style={styles.formGroup}>
+              <label style={styles.formLabel}>Duration (minutes)</label>
               <input
                 type="number"
-                className="form-control"
+                style={styles.formControl}
                 min="1"
                 max="480"
                 placeholder="e.g., 45"
                 {...register('duration_minutes')}
               />
-              <span className="form-hint">Estimated time to complete this lesson</span>
+              <span style={styles.formHint}>Estimated time to complete this lesson</span>
             </div>
             
-            <div className="form-group">
-              <label className="form-label">Attachment URL (optional)</label>
+            <div style={styles.formGroup}>
+              <label style={styles.formLabel}>Attachment URL (optional)</label>
               <input
                 type="url"
-                className="form-control"
+                style={styles.formControl}
                 placeholder="https://example.com/document.pdf"
                 {...register('attachment')}
               />
-              <span className="form-hint">PDFs, slides, or other resources</span>
+              <span style={styles.formHint}>PDFs, slides, or other resources</span>
             </div>
           </div>
 
-          <div className="form-group checkbox-group">
-            <label className="checkbox-label">
+          <div style={styles.checkboxGroup}>
+            <label style={styles.checkboxLabel}>
               <input
                 type="checkbox"
                 {...register('is_active')}
                 defaultChecked
-                className="checkbox-input"
+                style={styles.checkboxInput}
               />
-              <span className="checkbox-custom"></span>
-              <span className="checkbox-text">Active (available to students)</span>
+              <span style={styles.checkboxText}>Active (available to students)</span>
             </label>
           </div>
 
-          <div className="lesson-modal-footer">
-            <button type="submit" className="btn btn-primary">
+          <div style={styles.modalFooter}>
+            <button 
+              type="submit" 
+              style={{ ...styles.btn, ...styles.btnPrimary }}
+            >
               {isEditing ? 'Update Lesson' : 'Create Lesson'}
             </button>
             {isEditing && (
-              <button type="button" className="btn btn-outline" onClick={handleReset}>
+              <button 
+                type="button" 
+                style={{ ...styles.btn, ...styles.btnOutline }}
+                onClick={handleReset}
+              >
                 Reset Changes
               </button>
             )}
-            <button type="button" className="btn btn-outline" onClick={onClose}>
+            <button 
+              type="button" 
+              style={{ ...styles.btn, ...styles.btnOutline }}
+              onClick={onClose}
+            >
               Cancel
             </button>
           </div>
