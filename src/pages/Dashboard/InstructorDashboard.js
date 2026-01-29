@@ -139,9 +139,9 @@ const InstructorDashboard = () => {
           <h1 style={styles.title}>Welcome back, {instructor.first_name || instructor.username}!</h1>
           <p style={styles.subtitle}>Track your courses, students, and revenue</p>
         </div>
-        <Link to="/instructor/courses/create" style={styles.createCourseButton}>
+        {/* <Link to="/instructor/courses/create" style={styles.createCourseButton}>
           Create New Course
-        </Link>
+        </Link> */}
       </div>
 
       {/* Stats Overview */}

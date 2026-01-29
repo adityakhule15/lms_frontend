@@ -185,7 +185,7 @@ const CourseDetail = () => {
           <div style={styles.priceContainer}>
             {course.price ? (
               <div style={styles.priceTag}>
-                <span style={styles.priceCurrency}>$</span>
+                <span style={styles.priceCurrency}>₹ </span>
                 <span style={styles.priceAmount}>{course.price}</span>
               </div>
             ) : (
@@ -227,14 +227,14 @@ const CourseDetail = () => {
           
           {isCourseInstructor && (
             <div style={styles.instructorActions}>
-              <Link 
+              {/* <Link 
                 to={`/instructor/courses/${id}/edit`}
                 style={styles.editButton}
               >
                 Edit Course
-              </Link>
+              </Link> */}
               <Link 
-                to={`/instructor/courses/${id}/analytics`}
+                to={`/courses/${id}/analytics`}
                 style={styles.analyticsButton}
               >
                 View Analytics
